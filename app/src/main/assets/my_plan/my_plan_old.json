@@ -1,0 +1,11 @@
+{
+  "content": {
+    "planValue": "R$ 39,99",
+    "status": "Active",
+    "phoneNumber": "(34) 99687-7876",
+    "plan": 15,
+    "bonus": 5,
+    "extraPlayBaseUrl": "https://mondrian.claro.com.br/brands/app/32px-alternative",
+    "extraPlay": "tik-tok.png;facebook.png;instagram.png;twitter.png;waze.png;youtube.png"
+  }
+}

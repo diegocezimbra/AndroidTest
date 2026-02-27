@@ -1,0 +1,74 @@
+{
+  "screen": {
+    "name": "Plano Claro Flex",
+    "offerDisplay": "20GB",
+    "planValue": "R$ 39,99",
+    "header": [
+      [
+        {
+          "title": "Status:",
+          "value": {
+            "text": "Active",
+            "alignment": "left",
+            "textColor": "#1F1D1D"
+          }
+        },
+        {
+          "title": "Meu número:",
+          "value": {
+            "text": "(34) 99687-7876",
+            "alignment": "left",
+            "textColor": "#1F1D1D"
+          }
+        }
+      ],
+      [
+        {
+          "title": "Plano",
+          "value": {
+            "text": "15GB",
+            "alignment": "right",
+            "textColor": "#1F1D1D"
+          }
+        },
+        {
+          "title": "Bônus para redes sociais",
+          "value": {
+            "text": "5GB",
+            "alignment": "right",
+            "textColor": "#1F1D1D"
+          }
+        }
+      ]
+    ],
+    "extraPlay": {
+      "title": "Apps inclusos:",
+      "options": [
+        {
+          "description": "Tik tok",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/tik-tok.png"
+        },
+        {
+          "description": "Facebook",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/facebook.png"
+        },
+        {
+          "description": "Instagram",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/instagram.png"
+        },
+        {
+          "description": "Twitter",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/twitter.png"
+        },
+        {
+          "description": "Waze",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/waze.png"
+        },
+        {
+          "description": "Youtube",
+          "url": "https:\/\/mondrian.claro.com.br\/brands\/app\/32px-alternative\/youtube.png"
+        }
+      ]
+    }
+  }
+}

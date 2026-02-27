@@ -1,0 +1,11 @@
+{
+  "content": {
+    "user": {
+      "id": "1",
+      "name": "Zé dos Reis",
+      "age": "34",
+      "documentNumber": "789.552.800-92",
+      "avatarUrl": "https://gravatar.com/avatar/528fc61d588a9afd3b1567583aeef2a2?s=400&d=robohash&r=x"
+    }
+  }
+}
