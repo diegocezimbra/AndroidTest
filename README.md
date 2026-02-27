@@ -1,8 +1,32 @@
 # AndroidTest
 Teste para vaga de desenvolvedor Android
 
-O desafio consite em criar 3 telas.
+Deveria fazer um fork para o github pessoal e abrir um m.r com as changes para o github do AndroidTest
 
+O desafio consite em criar 3 telas.
+ - Tela Principal
+ - Tela Meus Dados
+ - Tela Meu Plano
+
+Arquitetura, poderá se optar por: 
+ - MVVM
+ - MVI
+ - MVVM-Clean
+
+Linguage: Kotlin
+
+Injeção de dependência: Koin
+
+Renderizar imagens remotas: Coil
+
+Android compile sdk 36 e min sdk 28
+
+Testes unitários
+
+Figma: https://www.figma.com/design/PQAFTgCZHlsmj57yaxWQJc/Sem-t%C3%ADtulo?node-id=0-1&t=HfF89ZbmO2FZ6WNW-1
+
+Das telas: 
+   
 **Tela Principal**
 
 - O botão nativo deverá ser interceptado e apresentar uma modal perguntando se ele deseja sair como abaixo:
