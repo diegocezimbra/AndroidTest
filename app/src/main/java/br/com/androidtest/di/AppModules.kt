@@ -1,11 +1,11 @@
 package br.com.androidtest.di
 
+import br.com.androidtest.common.AppConfig
 import br.com.androidtest.common.DefaultDispatcherProvider
 import br.com.androidtest.common.DispatcherProvider
-import br.com.androidtest.features.mydata.viewmodel.MyDataViewModel
+import br.com.androidtest.common.ViewModelQualifierKeys
 import br.com.androidtest.features.mydata.viewmodel.NPMyDataViewModel
 import br.com.androidtest.features.mydata.viewmodel.RWMyDataViewModel
-import br.com.androidtest.features.myplan.viewmodel.MyPlanViewModel
 import br.com.androidtest.features.myplan.viewmodel.NPMyPlanViewModel
 import br.com.androidtest.features.myplan.viewmodel.RWMyPlanViewModel
 import br.com.androidtest.repositories.mydata.DefaultMyDataRepository
@@ -21,7 +21,7 @@ import br.com.androidtest.services.myplan.AssetMyPlanService
 import br.com.androidtest.services.myplan.MyPlanService
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -29,7 +29,9 @@ private val coreModule = module {
     single<DispatcherProvider> { DefaultDispatcherProvider() }
     single { Json { ignoreUnknownKeys = true } }
     single { AssetReader(androidContext()) }
-    single(named("privacy_url")) { getKoin().getProperty("privacy_url", "https://www.lipsum.com/") }
+    single(named(AppConfig.PRIVACY_URL_PROPERTY_KEY)) {
+        getKoin().getProperty(AppConfig.PRIVACY_URL_PROPERTY_KEY, AppConfig.DEFAULT_PRIVACY_URL)
+    }
 }
 
 private val serviceModule = module {
@@ -46,29 +48,29 @@ private val repositoryModule = module {
 }
 
 private val viewModelModule = module {
-    viewModel<MyDataViewModel>(qualifier = named("my_data_np")) {
+    viewModel<NPMyDataViewModel>(qualifier = named(ViewModelQualifierKeys.MY_DATA_NP)) {
         NPMyDataViewModel(
             repository = get(),
             dispatcherProvider = get()
         )
     }
 
-    viewModel<MyDataViewModel>(qualifier = named("my_data_rw")) {
+    viewModel<RWMyDataViewModel>(qualifier = named(ViewModelQualifierKeys.MY_DATA_RW)) {
         RWMyDataViewModel(
             repository = get(),
-            privacyUrl = get(named("privacy_url")),
+            privacyUrl = get(named(AppConfig.PRIVACY_URL_PROPERTY_KEY)),
             dispatcherProvider = get()
         )
     }
 
-    viewModel<MyPlanViewModel>(qualifier = named("my_plan_np")) {
+    viewModel<NPMyPlanViewModel>(qualifier = named(ViewModelQualifierKeys.MY_PLAN_NP)) {
         NPMyPlanViewModel(
             repository = get(),
             dispatcherProvider = get()
         )
     }
 
-    viewModel<MyPlanViewModel>(qualifier = named("my_plan_rw")) {
+    viewModel<RWMyPlanViewModel>(qualifier = named(ViewModelQualifierKeys.MY_PLAN_RW)) {
         RWMyPlanViewModel(
             repository = get(),
             dispatcherProvider = get()

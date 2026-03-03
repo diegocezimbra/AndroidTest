@@ -5,8 +5,16 @@ enum class PlatformType(
     val myDataQualifier: String,
     val myPlanQualifier: String
 ) {
-    NP(routeValue = "np", myDataQualifier = "my_data_np", myPlanQualifier = "my_plan_np"),
-    RW(routeValue = "rw", myDataQualifier = "my_data_rw", myPlanQualifier = "my_plan_rw");
+    NP(
+        routeValue = "np",
+        myDataQualifier = ViewModelQualifierKeys.MY_DATA_NP,
+        myPlanQualifier = ViewModelQualifierKeys.MY_PLAN_NP
+    ),
+    RW(
+        routeValue = "rw",
+        myDataQualifier = ViewModelQualifierKeys.MY_DATA_RW,
+        myPlanQualifier = ViewModelQualifierKeys.MY_PLAN_RW
+    );
 
     companion object {
         fun fromRoute(value: String?): PlatformType =

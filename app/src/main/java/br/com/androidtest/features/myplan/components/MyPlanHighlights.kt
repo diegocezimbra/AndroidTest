@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import br.com.androidtest.designsystem.theme.Ink600
+import br.com.androidtest.designsystem.theme.Ink500
 
 @Composable
 fun MyPlanHighlights(
@@ -19,27 +19,18 @@ fun MyPlanHighlights(
     plan: String,
     bonus: String
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         PlanRow(label = "Status", value = status)
         PlanRow(label = "Meu número", value = phone)
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = "Plano", style = MaterialTheme.typography.bodyMedium, color = Ink600)
-                Text(text = plan, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-            }
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = "Bônus", style = MaterialTheme.typography.bodyMedium, color = Ink600)
-                Text(text = bonus, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-            }
-        }
+        PlanRow(label = "Plano", value = plan)
+        PlanRow(label = "Bônus para redes sociais", value = bonus)
     }
 }
 
 @Composable
 private fun PlanRow(label: String, value: String) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        Text(text = label, style = MaterialTheme.typography.bodyMedium, color = Ink600)
-        Text(text = value, style = MaterialTheme.typography.titleMedium)
+        Text(text = "$label:", style = MaterialTheme.typography.bodySmall, color = Ink500)
+        Text(text = value, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
     }
 }

@@ -1,18 +1,24 @@
 package br.com.androidtest.features.mydata.view
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.androidtest.common.ActionType
@@ -21,13 +27,14 @@ import br.com.androidtest.common.openUrl
 import br.com.androidtest.common.shareAssetPdf
 import br.com.androidtest.designsystem.molecules.ErrorState
 import br.com.androidtest.designsystem.molecules.LoadingState
-import br.com.androidtest.designsystem.organisms.AppCard
-import br.com.androidtest.designsystem.organisms.AppTopBar
 import br.com.androidtest.designsystem.organisms.ConfirmDialog
+import br.com.androidtest.designsystem.theme.BrandRed
 import br.com.androidtest.features.mydata.components.MyDataActionItem
 import br.com.androidtest.features.mydata.components.MyDataProfileHeader
 import br.com.androidtest.features.mydata.model.ExitModalUiModel
-import br.com.androidtest.features.mydata.viewmodel.MyDataViewModel
+import br.com.androidtest.features.mydata.viewmodel.MyDataViewModelContract
+import br.com.androidtest.features.mydata.viewmodel.NPMyDataViewModel
+import br.com.androidtest.features.mydata.viewmodel.RWMyDataViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
 
@@ -38,7 +45,18 @@ fun MyDataScreen(
     onOpenMyPlan: () -> Unit,
     onExitApp: () -> Unit
 ) {
-    val viewModel = koinViewModel<MyDataViewModel>(qualifier = named(platformType.myDataQualifier))
+    BackHandler(onBack = onBack)
+
+    val viewModel: MyDataViewModelContract = when (platformType) {
+        PlatformType.NP -> koinViewModel<NPMyDataViewModel>(
+            qualifier = named(platformType.myDataQualifier)
+        )
+
+        PlatformType.RW -> koinViewModel<RWMyDataViewModel>(
+            qualifier = named(platformType.myDataQualifier)
+        )
+    }
+
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
@@ -46,7 +64,8 @@ fun MyDataScreen(
 
     exitModal?.let { modal ->
         ConfirmDialog(
-            title = modal.title,
+            title = "Sair?",
+            subtitle = modal.title,
             confirmText = modal.confirmTitle,
             dismissText = modal.dismissTitle,
             onConfirm = onExitApp,
@@ -63,60 +82,76 @@ fun MyDataScreen(
 
         state.uiModel != null -> {
             state.uiModel?.let { model ->
-                Scaffold(
-                    topBar = {
-                        AppTopBar(title = model.title, onBack = onBack)
-                    }
-                ) { paddingValues ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surface)
+                ) {
+                    Text(
+                        text = "MEUS DADOS",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(BrandRed)
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        color = MaterialTheme.colorScheme.surface,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues)
-                            .padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        AppCard {
-                            MyDataProfileHeader(
-                                name = model.name,
-                                cpf = model.cpf,
-                                age = model.age,
-                                avatarUrl = model.avatarUrl
-                            )
+                        Text(
+                            text = "Meus dados",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp)
+                        )
 
-                            HorizontalDivider()
+                        MyDataProfileHeader(
+                            name = model.name,
+                            cpf = model.cpf,
+                            age = model.age,
+                            avatarUrl = model.avatarUrl
+                        )
+                    }
 
-                            Column {
-                                model.actions.forEach { action ->
-                                    MyDataActionItem(
-                                        icon = action.icon,
-                                        title = action.title,
-                                        onClick = {
-                                            when (action.actionType) {
-                                                ActionType.MY_PLAN -> onOpenMyPlan()
-                                                ActionType.SHARE_CONTRACT -> {
-                                                    shareAssetPdf(context, action.assetName ?: "terms.pdf")
-                                                }
+                    HorizontalDivider()
 
-                                                ActionType.WEB -> {
-                                                    action.url?.let { openUrl(context, it) }
-                                                }
-
-                                                ActionType.EXIT -> {
-                                                    exitModal = action.modal ?: ExitModalUiModel(
-                                                        title = "Deseja realmente sair?",
-                                                        confirmTitle = "Sim",
-                                                        dismissTitle = "Não"
-                                                    )
-                                                }
-
-                                                ActionType.DISMISS,
-                                                ActionType.BACK -> Unit
-                                            }
+                    Column(verticalArrangement = Arrangement.spacedBy(0.dp)) {
+                        model.actions.forEach { action ->
+                            MyDataActionItem(
+                                icon = action.icon,
+                                title = action.title,
+                                onClick = {
+                                    when (action.actionType) {
+                                        ActionType.MY_PLAN -> onOpenMyPlan()
+                                        ActionType.SHARE_CONTRACT -> {
+                                            shareAssetPdf(context, action.assetName ?: "terms.pdf")
                                         }
-                                    )
-                                    HorizontalDivider()
+
+                                        ActionType.WEB -> {
+                                            action.url?.let { openUrl(context, it) }
+                                        }
+
+                                        ActionType.EXIT -> {
+                                            exitModal = action.modal ?: ExitModalUiModel(
+                                                title = "Deseja realmente sair do app?",
+                                                confirmTitle = "Sim",
+                                                dismissTitle = "Não"
+                                            )
+                                        }
+
+                                        ActionType.DISMISS,
+                                        ActionType.BACK -> Unit
+                                    }
                                 }
-                            }
+                            )
+                            HorizontalDivider()
                         }
                     }
                 }
