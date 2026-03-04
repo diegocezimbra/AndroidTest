@@ -56,12 +56,12 @@ fun MainScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 20.dp, vertical = 36.dp)
     ) {
         Text(
             text = "PRINCIPAL",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(start = 4.dp, bottom = 8.dp)
         )
 
@@ -101,7 +101,7 @@ private fun PlatformRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = title, style = MaterialTheme.typography.bodyMedium)
+        Text(text = title, style = MaterialTheme.typography.titleMedium)
         Icon(imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
     }
 }

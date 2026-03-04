@@ -2,12 +2,20 @@ package br.com.androidtest.features.mydata.view
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -87,31 +95,25 @@ fun MyDataScreen(
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.surface)
                 ) {
-                    Text(
-                        text = "MEUS DADOS",
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .height(56.dp)
                             .background(BrandRed)
-                            .padding(horizontal = 12.dp, vertical = 8.dp),
-                        color = MaterialTheme.colorScheme.surface,
-                        style = MaterialTheme.typography.titleMedium
                     )
 
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .padding(horizontal = 16.dp, vertical = 16.dp),
+                        horizontalAlignment = Alignment.Start
                     ) {
                         Text(
                             text = "Meus dados",
-                            style = MaterialTheme.typography.titleMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 12.dp)
+                            modifier = Modifier.padding(bottom = 16.dp)
                         )
-
                         MyDataProfileHeader(
                             name = model.name,
                             cpf = model.cpf,

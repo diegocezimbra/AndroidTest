@@ -13,24 +13,46 @@ import androidx.compose.ui.unit.dp
 import br.com.androidtest.designsystem.theme.Ink500
 
 @Composable
-fun MyPlanHighlights(
+fun MyPlanHighlightsTop(
     status: String,
     phone: String,
+    planValue: String
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Row {
+                Text(text = "Status: ", style = MaterialTheme.typography.bodyMedium, color = Ink500)
+                Text(text = status, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+            }
+            Text(text = planValue, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+        }
+        PlanRow(label = "Meu número:", value = phone)
+    }
+}
+
+@Composable
+fun MyPlanHighlightsBottom(
     plan: String,
     bonus: String
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        PlanRow(label = "Status", value = status)
-        PlanRow(label = "Meu número", value = phone)
-        PlanRow(label = "Plano", value = plan)
-        PlanRow(label = "Bônus para redes sociais", value = bonus)
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        PlanRowNormal(label = "Plano", value = plan)
+        PlanRowNormal(label = "Bônus para redes sociais", value = bonus)
     }
 }
 
 @Composable
 private fun PlanRow(label: String, value: String) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        Text(text = "$label:", style = MaterialTheme.typography.bodySmall, color = Ink500)
-        Text(text = value, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
+        Text(text = label, style = MaterialTheme.typography.bodyMedium, color = Ink500)
+        Text(text = value, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+private fun PlanRowNormal(label: String, value: String) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(text = label, style = MaterialTheme.typography.bodyMedium, color = Ink500)
+        Text(text = value, style = MaterialTheme.typography.bodyMedium)
     }
 }

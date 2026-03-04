@@ -27,7 +27,8 @@ import br.com.androidtest.designsystem.molecules.ErrorState
 import br.com.androidtest.designsystem.molecules.LoadingState
 import br.com.androidtest.designsystem.theme.BrandRed
 import br.com.androidtest.features.myplan.components.IncludedAppsList
-import br.com.androidtest.features.myplan.components.MyPlanHighlights
+import br.com.androidtest.features.myplan.components.MyPlanHighlightsBottom
+import br.com.androidtest.features.myplan.components.MyPlanHighlightsTop
 import br.com.androidtest.features.myplan.viewmodel.MyPlanViewModelContract
 import br.com.androidtest.features.myplan.viewmodel.NPMyPlanViewModel
 import br.com.androidtest.features.myplan.viewmodel.RWMyPlanViewModel
@@ -68,9 +69,9 @@ fun MyPlanScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(40.dp)
+                            .height(56.dp)
                             .background(BrandRed)
-                            .padding(horizontal = 10.dp),
+                            .padding(horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -78,18 +79,12 @@ fun MyPlanScreen(
                             contentDescription = "Voltar",
                             tint = MaterialTheme.colorScheme.surface,
                             modifier = Modifier
-                                .size(18.dp)
+                                .size(24.dp)
                                 .clickable(onClick = onBack)
-                        )
-                        Text(
-                            text = "MEU PLANO",
-                            color = MaterialTheme.colorScheme.surface,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = 10.dp)
                         )
                     }
 
-                    Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+                    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.Top
@@ -97,31 +92,31 @@ fun MyPlanScreen(
                             Text(
                                 text = model.planName,
                                 modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
-                            Column(horizontalAlignment = Alignment.End) {
-                                Text(
-                                    text = model.offerDisplay,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    color = BrandRed,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Text(
-                                    text = model.planValue,
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
+                            Text(
+                                text = model.offerDisplay,
+                                style = MaterialTheme.typography.headlineLarge,
+                                color = BrandRed,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
+
+                        MyPlanHighlightsTop(
+                            status = model.status,
+                            phone = model.phoneNumber,
+                            planValue = model.planValue
+                        )
 
                         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-                        MyPlanHighlights(
-                            status = model.status,
-                            phone = model.phoneNumber,
+                        MyPlanHighlightsBottom(
                             plan = model.plan,
                             bonus = model.bonus
                         )
+
+                        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
                         IncludedAppsList(appUrls = model.includedApps)
                     }

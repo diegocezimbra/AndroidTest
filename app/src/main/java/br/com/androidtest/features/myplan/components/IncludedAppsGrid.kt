@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,27 +20,29 @@ import coil.compose.AsyncImage
 @Composable
 fun IncludedAppsList(appUrls: List<String>) {
     Text(
-        text = "Apps inclusos",
-        style = MaterialTheme.typography.bodySmall,
+        text = "Apps inclusos:",
+        style = MaterialTheme.typography.bodyMedium,
         color = Ink500,
-        modifier = Modifier.padding(top = 8.dp, bottom = 6.dp)
+        modifier = Modifier.padding(top = 12.dp, bottom = 8.dp)
     )
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(6.dp),
+        shape = RoundedCornerShape(8.dp),
         border = androidx.compose.foundation.BorderStroke(1.dp, DividerGray)
     ) {
-        LazyRow(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items(appUrls) { appUrl ->
+            appUrls.forEach { appUrl ->
                 AsyncImage(
                     model = appUrl,
                     contentDescription = "App",
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(32.dp)
                 )
             }
         }
